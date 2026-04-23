@@ -38,17 +38,17 @@ def query_database_with_sql(question: str, db=None):
         max_tokens=500,
     )
 
-    # 🔥 Get DB name
+    # Get DB name
     try:
         db_name = db._engine.url.database
     except:
         db_name = "your_database"
 
-    # 🔥 GET SCHEMA
+    # GET SCHEMA
     schema = get_schema_info(db)
     schema_text = format_schema(schema)
 
-    # 🔥 PROMPT WITH SCHEMA
+    # PROMPT WITH SCHEMA
     prompt = f"""
 You are a SQL expert.
 
@@ -84,14 +84,14 @@ Now generate SQL:
 
     sql = clean_sql(response.content)
 
-    # ❌ FAIL SAFE
+    
     if not sql.lower().startswith("select"):
-        return "❌ SQL generation failed", ""
+        return "SQL generation failed", ""
 
-    # 🔥 LIMIT SAFETY
+    
     sql = enforce_limit(sql)
 
-    # 🔥 EXECUTE
+    
     try:
         engine = db._engine
 

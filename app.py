@@ -19,7 +19,7 @@ from mongo_history import (
 
 load_dotenv()
 
-# ------------------ 🔐 GOOGLE AUTH ------------------
+# ------------------  GOOGLE AUTH ------------------
 CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
 
@@ -93,7 +93,7 @@ with st.sidebar:
 
     st.divider()
 
-    # 🔌 DB Connection
+    #  DB Connection
     st.markdown("### 🗄️ Database Connection")
 
     db_host = st.text_input("Host", value="localhost")
@@ -112,13 +112,13 @@ with st.sidebar:
             db.run("SELECT 1")
             st.session_state.db_instance = db
             st.session_state.db_connected = True
-            st.success("✅ Connected")
+            st.success("Connected")
         except Exception as e:
-            st.error(f"❌ Connection failed: {e}")
+            st.error(f"Connection failed: {e}")
 
     st.divider()
 
-    # 💬 Chat Sessions
+    #  Chat Sessions
     st.markdown("### 💬 Chats")
 
     sessions = get_all_sessions(user_email)
@@ -159,7 +159,7 @@ for msg in st.session_state.messages:
 # ------------------ INPUT ------------------
 if prompt := st.chat_input("Ask your data..."):
 
-    # ✅ Auto session naming
+    # Auto session naming
     if st.session_state.session_name == "New chat":
         st.session_state.session_name = generate_session_name(prompt)
 
@@ -183,7 +183,7 @@ if prompt := st.chat_input("Ask your data..."):
             st.session_state.db_instance
         )
 
-        # ✅ Show SQL
+        # Show SQL
         if sql:
             st.code(sql, language="sql")
 
@@ -201,14 +201,14 @@ if prompt := st.chat_input("Ask your data..."):
                     st.dataframe(df.head(50))
             except Exception as e:
                 st.error("Could not display result")
-                
+
         # ---------------- SAVE ASSISTANT MESSAGE ----------------
         save_message(
             user_email,
             st.session_state.session_id,
             st.session_state.session_name,
             "assistant",
-            "Generated SQL query",   # ✅ FIXED
+            "Generated SQL query",   
             sql
         )
 

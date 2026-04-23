@@ -18,7 +18,7 @@ def get_db(host=None, user=None, password=None, name=None):
 def get_schema_info(db):
     raw_tables = db.run("SHOW TABLES;")
 
-    # 🔥 FIX: convert string to list
+    
     import ast
     try:
         tables = ast.literal_eval(raw_tables)
@@ -29,7 +29,7 @@ def get_schema_info(db):
 
     for t in tables:
 
-        # 🔥 handle tuple, list, string
+        
         if isinstance(t, (list, tuple)):
             table_name = t[0]
         elif isinstance(t, dict):
@@ -40,7 +40,7 @@ def get_schema_info(db):
         if not table_name:
             continue
 
-        # 🔥 get columns
+        
         raw_cols = db.run(f"SHOW COLUMNS FROM {table_name};")
 
         try:
