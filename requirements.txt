@@ -1,0 +1,12 @@
+
+
+streamlit
+pandas
+sqlalchemy
+pymysql
+python-dotenv
+pymongo
+langchain
+langchain-openai
+streamlit-oauth
+matplotlib
